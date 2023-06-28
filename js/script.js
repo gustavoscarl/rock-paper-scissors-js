@@ -1,4 +1,5 @@
 const options = ['rock','paper','scissors'];
+let counter = 0;
 // Computer Choice
 let computerChoose;
 function getComputerChoice(options) { 
@@ -6,48 +7,68 @@ function getComputerChoice(options) {
    return computerChoose
 }
 getComputerChoice(options);
-// Player Choice
-
-const getPlayerChoice = prompt('Choose your fighter! (rock, paper or scissors)')
-
-const playerChoose = getPlayerChoice.toLowerCase()
-
-function checkChoice() {
-  if (playerChoose === 'rock' || 'paper' || 'scissors'){
-    console.log('Okay!')
-  } else {
-    console.log('Your choice is invalid, please reload the page and type again')
-  }
-}
-
-// Game
 
 function game() {
   if(computerChoose === playerChoose) {
-    console.log('Its a Draw!')
+    drawResult();
   }
   else if (computerChoose === 'rock' && playerChoose === 'paper') {
-      console.log('You won!')
+    winResult();
   }
   else if (computerChoose === 'paper' && playerChoose === 'rock') {
-    console.log('Computer won!')
+    loseResult();
   }
     else if (computerChoose === 'scissors' && playerChoose === 'rock') {
-  console.log('You won!')
+      winResult();
   }
   else if (computerChoose === 'rock' && playerChoose === 'scissors') {
-  console.log('Computer won!')
+    loseResult();
   }
   else if (computerChoose === 'rock' && playerChoose === 'paper') {
-  console.log('You won!')
+    loseResult();
   }
   else if (computerChoose === 'scissors' && playerChoose === 'paper') {
-    console.log('Computer won!')
+    loseResult();
   }
   else if (computerChoose === 'paper' && playerChoose === 'scissors') {
-    console.log('You won!')
+    winResult();
   }
-  console.log('Computer chose', computerChoose)
+  getComputerChoice(options);
 }
 
+// Buttons
 
+const buttons = document.querySelectorAll('button')
+
+buttons.forEach ((button) =>{ 
+    button.addEventListener('click', () => {
+    playerChoose = button.id;
+    game();
+  });
+});
+
+// Results
+
+const result = document.querySelector('#result')
+
+function drawResult() {
+  resultDraw = document.createElement('div');
+  resultDraw.classList.add('content-draw');
+  resultDraw.textContent = `It's a Draw, Computer chose ${computerChoose.charAt(0).toUpperCase() + computerChoose.slice(1)}`
+  result.appendChild(resultDraw);
+};
+
+
+function winResult() {
+const resultWin = document.createElement('div');
+resultWin.classList.add('content-win');
+resultWin.textContent = `You won!!! Computer chose ${computerChoose.charAt(0).toUpperCase() + computerChoose.slice(1)}`
+result.appendChild(resultWin);
+}
+
+function loseResult() {
+  const resultLose = document.createElement('div');
+  resultLose.classList.add('content-lose');
+  resultLose.textContent = `You lose, Computer chose ${computerChoose.charAt(0).toUpperCase() + computerChoose.slice(1)}`
+  result.appendChild(resultLose);
+  }
