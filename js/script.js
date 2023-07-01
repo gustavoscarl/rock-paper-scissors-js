@@ -1,12 +1,17 @@
 const options = ['rock','paper','scissors'];
 let counter = 0;
+let gameOver = false;
+
 // Computer Choice
 let computerChoose;
+
 function getComputerChoice(options) { 
    computerChoose = options[Math.floor(Math.random() * options.length)];
    return computerChoose
 }
 getComputerChoice(options);
+
+// Game
 
 function game() {
   if(computerChoose === playerChoose) {
@@ -42,6 +47,9 @@ const buttons = document.querySelectorAll('button')
 
 buttons.forEach ((button) =>{ 
     button.addEventListener('click', () => {
+      if (gameOver) {
+        return;
+      }
     playerChoose = button.id;
     game();
   });
@@ -50,6 +58,10 @@ buttons.forEach ((button) =>{
 // Results
 
 const result = document.querySelector('#result')
+let countWin = 0;
+let countLose = 0;
+const playerPoint = document.querySelector('#player-point')
+const computerPoint = document.querySelector('#computer-point')
 
 function drawResult() {
   resultDraw = document.createElement('div');
@@ -60,10 +72,22 @@ function drawResult() {
 
 
 function winResult() {
-const resultWin = document.createElement('div');
-resultWin.classList.add('content-win');
-resultWin.textContent = `You won!!! Computer chose ${computerChoose.charAt(0).toUpperCase() + computerChoose.slice(1)}`
-result.appendChild(resultWin);
+  const resultWin = document.createElement('div');
+  resultWin.classList.add('content-win');
+  resultWin.textContent = `You won!!! Computer chose ${computerChoose.charAt(0).toUpperCase() + computerChoose.slice(1)}`
+  result.appendChild(resultWin);
+  countWin++;
+  playerPoint.innerHTML = `${countWin}`;
+    if (countWin === 5) {
+      playerWon = document.createElement('div');
+      playerWon.setAttribute("id", "player-won");
+      playerWon.textContent = `YOU WON!! CELEBRATE!`;
+      result.appendChild(playerWon);
+      gameOver = true;
+      setTimeout(function() {
+        location.reload();
+      }, 2000)
+    }
 }
 
 function loseResult() {
@@ -71,4 +95,18 @@ function loseResult() {
   resultLose.classList.add('content-lose');
   resultLose.textContent = `You lose, Computer chose ${computerChoose.charAt(0).toUpperCase() + computerChoose.slice(1)}`
   result.appendChild(resultLose);
-  }
+  countLose++;
+  computerPoint.innerHTML = `${countLose}`
+    if (countLose === 5) {
+      playerLose = document.createElement('div');
+      playerLose.setAttribute("id", "player-lose");
+      playerLose.textContent = `COMPUTER WON! TRY AGAIN...`;
+      result.appendChild(playerLose);
+      gameOver = true;
+      setTimeout(function() {
+        location.reload();
+      }, 2000);
+    }
+}
+
+

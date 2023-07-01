@@ -1,6 +1,30 @@
 body{
   background: #FBFFDC;
 }
+.points-player {
+  margin-top: 10vh;
+  text-transform:uppercase;
+  color: #362e8f;
+  font-family:'Arial Narrow', Arial, sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 25px;
+}
+
+.points-computer {
+  margin-top: 10px;
+  text-transform:uppercase;
+  color: #871313;
+  font-family:'Arial Narrow', Arial, sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 25px;
+}
+
+#player-point, #computer-point {
+  margin-left: 5px;
+  font-size: 27px;
+}
 
 h1{
   margin-top: 10vh;
@@ -41,5 +65,15 @@ h1{
 }
 
 .content-lose{
+  color: red;
+}
+
+#result #player-won {
+  font-size: 50px;
+  color: blue;
+}
+
+#result #player-lose {
+  font-size: 50px;
   color: red;
 }
